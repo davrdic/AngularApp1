@@ -21,11 +21,10 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.getForecasts();
-    this.log();
   }
 
   getForecasts() {
-    this.http.get<WeatherForecast[]>('http://134.122.27.167:44319/weatherforecast').subscribe(
+    this.http.get<WeatherForecast[]>('https://134.122.27.167:44319/weatherforecast').subscribe(
       (result) => {
         this.forecasts = result;
       },
@@ -33,10 +32,6 @@ export class AppComponent implements OnInit {
         console.error(error);
       }
     );
-  }
-
-  log() {
-    console.log(this.http);
   }
 
   title = 'angularapp1.client';
