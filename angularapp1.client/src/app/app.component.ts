@@ -24,7 +24,7 @@ export class AppComponent implements OnInit {
   }
 
   getForecasts() {
-    this.http.get<WeatherForecast[]>('https://134.122.27.167:80/weatherforecast').subscribe(
+    this.http.get<WeatherForecast[]>('https://134.122.27.167:5000/weatherforecast').subscribe(
       (result) => {
         this.forecasts = result;
       },
