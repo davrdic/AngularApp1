@@ -17,6 +17,8 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
+Console.WriteLine("IsDevelopment " + app.Environment.IsDevelopment());
+
 app.UseDefaultFiles();
 app.MapStaticAssets();
 
