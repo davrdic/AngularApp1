@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.HttpOverrides;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,15 +9,20 @@ builder.Services.AddControllers();
 //builder.Services.AddOpenApi();
 
 //if (!builder.Environment.IsDevelopment())
-{
-    builder.Services.AddHttpsRedirection(options =>
-    {
-        options.RedirectStatusCode = 308;
-        options.HttpsPort = 443;
-    });
-}
+//{
+//    builder.Services.AddHttpsRedirection(options =>
+//    {
+//        options.RedirectStatusCode = 308;
+//        options.HttpsPort = 443;
+//    });
+//}
 
 var app = builder.Build();
+
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
 
 Console.WriteLine("IsDevelopment " + app.Environment.IsDevelopment());
 
