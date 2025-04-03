@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+const { env } = require('process');
 
 interface WeatherForecast {
   date: string;
@@ -24,7 +25,8 @@ export class AppComponent implements OnInit {
   }
 
   getForecasts() {
-    this.http.get<WeatherForecast[]>('/weatherforecast').subscribe(
+    let url: string = env.ASPNETCORE_URLS ? env.ASPNETCORE_URLS : '';
+    this.http.get<WeatherForecast[]>(url + '/weatherforecast').subscribe(
       (result) => {
         this.forecasts = result;
       },
