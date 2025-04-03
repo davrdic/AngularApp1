@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-const { env } = require('process');
-
+import { isDevMode } from '@angular/core';
 interface WeatherForecast {
   date: string;
   temperatureC: number;
@@ -25,8 +24,8 @@ export class AppComponent implements OnInit {
   }
 
   getForecasts() {
-    let url: string = env.ASPNETCORE_URLS ? env.ASPNETCORE_URLS : '';
-    this.http.get<WeatherForecast[]>(url + '/weatherforecast').subscribe(
+    let url: string = isDevMode() ? '/weatherforecast' : 'https://www.thedummystoretest.site/weatherforecast';
+    this.http.get<WeatherForecast[]>(url).subscribe(
       (result) => {
         this.forecasts = result;
       },
