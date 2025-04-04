@@ -1,24 +1,26 @@
-﻿<h1 id="tableLabel">Weather forecast</h1>
+<h1 id="tableLabel">Shoot the Moon</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
+<p>A game for Dummies</p>
 
-<p *ngIf="!forecasts"><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.</em></p>
+<p *ngIf="!gameStates"><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.</em></p>
 
-<table *ngIf="forecasts">
+<table *ngIf="gameStates">
     <thead>
         <tr>
-            <th>Date</th>
-            <th>Temp. (C)</th>
-            <th>Temp. (F)</th>
-            <th>Summary</th>
+            <th>Game ID</th>
+            <th>Player ID</th>
+            <th>Arena 1</th>
+            <th>Arena 2</th>
+            <th>Arena 3</th>
+            <th>Arena 4</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let forecast of forecasts">
-            <td>{{ forecast.date }}</td>
-            <td>{{ forecast.temperatureC }}</td>
-            <td>{{ forecast.temperatureF }}</td>
-            <td>{{ forecast.summary }}</td>
+        <tr *ngFor="let gameState of gameStates">
+            <td>{{ gameState.date }}</td>
+            <td>{{ gameState.temperatureC }}</td>
+            <td>{{ gameState.temperatureF }}</td>
+            <td>{{ gameState.summary }}</td>
         </tr>
     </tbody>
 </table>
