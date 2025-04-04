@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { isDevMode } from '@angular/core';
-interface WeatherForecast {
+interface GameState {
   date: string;
   temperatureC: number;
   temperatureF: number;
@@ -15,19 +15,19 @@ interface WeatherForecast {
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
-  public forecasts: WeatherForecast[] = [];
+  public gameStates: GameState[] = [];
 
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.getForecasts();
+    this.getGameState();
   }
 
-  getForecasts() {
-    let url: string = isDevMode() ? '/weatherforecast' : 'https://www.thedummystoretest.site/weatherforecast';
-    this.http.get<WeatherForecast[]>(url).subscribe(
+  getGameState() {
+    let url: string = isDevMode() ? '/game_state' : 'https://www.thedummystoretest.site/game_state';
+    this.http.get<GameState[]>(url).subscribe(
       (result) => {
-        this.forecasts = result;
+        this.gameStates = result;
       },
       (error) => {
         console.error(error);
