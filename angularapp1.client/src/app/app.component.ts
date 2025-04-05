@@ -58,12 +58,12 @@ export class AppComponent implements OnInit {
         let dominoesJson = JSON.parse(this.gameState.domino);
         this.hand.dOne.sideA = dominoesJson.d_one.side_a;
         this.hand.dOne.sideB = dominoesJson.d_two.side_a;
-        this.hand = dominoesJson;
-        console.log(this.hand.dOne.sideA + this.hand.dOne.sideB);
+        //this.hand = dominoesJson;
+        //console.log(this.hand.dOne.sideA + this.hand.dOne.sideB);
 
         let playerOneHand = JSON.parse(this.gameState.domino);
-        this.hand.dOne.sideA = playerOneHand.d_one.side_a;
-        console.log(this.hand.dOne.sideA);
+        //this.hand.dOne.sideA = playerOneHand.d_one.side_a;
+        //console.log(this.hand.dOne.sideA);
       },
       (error) => {
         console.error(error);
@@ -79,12 +79,27 @@ export class AppComponent implements OnInit {
       })
     };
     console.log("Here");
-    let test = JSON.stringify(this.hand);
-    console.log("test: " + test);
+
+    const dominoOne = {
+      side_a: 0,
+      side_b: 0
+    };
+
+    const dominoTwo = {
+      side_a: 1,
+      side_b: 1
+    };
+
+    const hand = {
+      domino_one: dominoOne,
+      domino_two: dominoTwo
+    }
+
+    //console.log("test: " + test);
     let url: string = isDevMode() ? '/create_game' : 'https://www.thedummystoretest.site/create_game';
     console.log("url: " + url);
 
-    this.http.post(url, test, httpOptions).subscribe(
+    this.http.post(url, hand, httpOptions).subscribe(
       (result) => {
         console.log("Success");
       },
