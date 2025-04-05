@@ -99,9 +99,9 @@ export class AppComponent implements OnInit {
     let url: string = isDevMode() ? '/create_game' : 'https://www.thedummystoretest.site/create_game';
     console.log("url: " + url);
 
-    this.http.post(url, hand, httpOptions).subscribe(
+    this.http.post(url, JSON.stringify({ key1: 'value1', key2: 'value2' }), httpOptions).subscribe(
       (result) => {
-        console.log("Success");
+        console.log("Returned Item: " + result);
       },
       (error) => {
         console.error(error);
