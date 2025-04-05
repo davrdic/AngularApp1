@@ -2,9 +2,9 @@
 
 <p>A game for Dummies</p>
 
-<p *ngIf="!gameStates"><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.</em></p>
+<p *ngIf="!gameState"><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.</em></p>
 
-<table *ngIf="gameStates">
+<table *ngIf="gameState">
     <thead>
         <tr>
             <th>Game ID</th>
@@ -16,11 +16,13 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let gameState of gameStates">
-            <td>{{ gameState.date }}</td>
-            <td>{{ gameState.temperatureC }}</td>
-            <td>{{ gameState.temperatureF }}</td>
-            <td>{{ gameState.summary }}</td>
-        </tr>
+      <tr>
+        <td>{{ gameState.date }}</td>
+        <td>{{ gameState.temperatureC }}</td>
+        <td>{{ gameState.temperatureF }}</td>
+        <td>{{ gameState.summary }}</td>
+        <td>{{ gameState.domino }}</td>
+        <td>{{ gameState.domino }}</td>
+      </tr>
     </tbody>
 </table>
