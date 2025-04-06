@@ -74,7 +74,7 @@ export class AppComponent implements OnInit {
   createGame() {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        //'Content-Type': 'application/json'
         //'Access-Control-Allow-Origin': '*'
       })
     };
