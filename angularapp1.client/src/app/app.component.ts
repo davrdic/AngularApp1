@@ -90,16 +90,24 @@ export class AppComponent implements OnInit {
       side_b: 1
     };
 
+    const dominoThree = {
+      side_a: 1,
+      side_b: 1
+    };
+
     const hand = {
       domino_one: dominoOne,
-      domino_two: dominoTwo
+      domino_two: dominoTwo,
+      domino_three: dominoThree
     }
 
     //console.log("test: " + test);
     let url: string = isDevMode() ? '/create_game' : 'https://www.thedummystoretest.site/create_game';
     console.log("url: " + url);
 
-    this.http.post(url, JSON.stringify({ key1: 'value1', key2: 'value2' }), httpOptions).subscribe(
+    //this.http.post(url, JSON.stringify({ key1: 'value1', key2: 'value2' }), httpOptions).subscribe(
+    let myString: string = '{"d_one":{"side_a": 1, "side_b":1},"d_two":{"side_a": 2,"side_b": 2}}';
+    this.http.post(url, dominoOne, httpOptions).subscribe(
       (result) => {
         console.log("Returned Item: " + result);
       },
