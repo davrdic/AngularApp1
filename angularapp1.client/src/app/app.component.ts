@@ -1,8 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParameterCodec, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { isDevMode } from '@angular/core';
 import { Domino } from '../classes/Domino';
 import { Hand } from '../classes/Domino';
+import { GameService } from './GameService';
 
 interface GameState {
   date: string;
@@ -34,6 +35,8 @@ export class AppComponent implements OnInit {
     domino: ''
   }
 
+
+
   //public domino = new Domino(0, 0);
   public hand = new Hand();
 
@@ -42,11 +45,25 @@ export class AppComponent implements OnInit {
   //  dTwo: { sideA: 0, sideB: 0}
   //}
 
-  constructor(private http: HttpClient) {}
-
+  constructor(private http: HttpClient, private gameService: GameService) {}
+  gameData: any;
+  id: any;
   ngOnInit() {
-    this.getGameState();
-    this.createGame();
+    //this.getGameState();
+    let id = this.createGame();
+    console.log("Test B: " + id);
+  }
+
+  newGet(gameId: string) {
+    this.gameService.getGame(gameId).subscribe(
+      data => {
+        console.log('Game data:', data);
+        this.gameData = data;  // Store the response data
+      },
+      error => {
+        console.error('Error fetching game data:', error);
+      }
+    );
   }
 
   getGameState() {
@@ -71,7 +88,7 @@ export class AppComponent implements OnInit {
     );
   }
 
-  createGame() {
+  createGame(): string {
     const httpOptions = {
       headers: new HttpHeaders({
         //'Content-Type': 'application/json'
@@ -109,12 +126,15 @@ export class AppComponent implements OnInit {
     let myString: string = '{"d_one":{"side_a": 1, "side_b":1},"d_two":{"side_a": 2,"side_b": 2}}';
     this.http.post(url, dominoOne, httpOptions).subscribe(
       (result) => {
-        console.log("Returned Item: " + JSON.stringify(result));
+        //let testvalue = this.newGet(JSON.stringify(result));
+        console.log("testvalue: " + result);
       },
       (error) => {
         console.error(error);
+        return 'fail';
       }
     )
+    return 'hello';
   };
 
   title = 'angularapp1.client';
