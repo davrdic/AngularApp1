@@ -19,7 +19,6 @@ export class GameService {
     //console.log('params: ' + params);
 
     //return this.http.get(`${this.apiUrl}/${gameId}`, { params });  // Make the GET request
-    console.log("Game data sent: 67f425053426eebe4684abca");
-    return this.http.get(`${this.apiUrl}/67f425053426eebe4684abca`); 
+    return this.http.get(`${this.apiUrl}/${gameId}`); 
   }
 }
