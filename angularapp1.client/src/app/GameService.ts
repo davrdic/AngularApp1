@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class GameService {
 
-  private apiUrl = '/game_state';  // Replace with your API base URL
+  private apiUrl: string = isDevMode() ? '/game_state' : 'https://www.thedummystoretest.site/game_state';
 
   constructor(private http: HttpClient) { }
 
