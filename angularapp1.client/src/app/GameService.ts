@@ -13,11 +13,12 @@ export class GameService {
 
   // Method to make GET request with a parameter
   getGame(gameId: string): Observable<any> {
-    const params = new HttpParams().set('gameId', gameId);  // Set the gameId parameter
+    //const params = new HttpParams().set('gameId', gameId);  // Set the gameId parameter
     //params.set('testvalue', 123);
 
-    console.log('params: ' + params);
+    //console.log('params: ' + params);
 
-    return this.http.get(`${this.apiUrl}/${gameId}`, { params });  // Make the GET request
+    //return this.http.get(`${this.apiUrl}/${gameId}`, { params });  // Make the GET request
+    return this.http.get(`${this.apiUrl}/${gameId}`); 
   }
 }
