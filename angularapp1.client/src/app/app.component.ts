@@ -109,7 +109,7 @@ export class AppComponent implements OnInit {
     let myString: string = '{"d_one":{"side_a": 1, "side_b":1},"d_two":{"side_a": 2,"side_b": 2}}';
     this.http.post(url, dominoOne, httpOptions).subscribe(
       (result) => {
-        console.log("Returned Item: " + result);
+        console.log("Returned Item: " + JSON.stringify(result));
       },
       (error) => {
         console.error(error);
