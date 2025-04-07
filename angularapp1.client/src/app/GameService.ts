@@ -28,4 +28,9 @@ export class GameService {
     console.log(`Sending PUT request to: ${url}`);
     return this.http.put(url, updatedData);
   }
+
+  deleteGame(gameId: string): Observable<any> {
+    this.apiUrl = isDevMode() ? 'http://127.0.0.1:8000' : 'https://www.thedummystoretest.site';
+    return this.http.delete(`${this.apiUrl}/delete_game/${gameId}`);
+  }
 }

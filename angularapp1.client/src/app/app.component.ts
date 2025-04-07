@@ -54,6 +54,18 @@ export class AppComponent implements OnInit {
     //console.log("Test B: " + id);
     console.log("Start Put test");
     this.updateData();
+    this.deleteGameData("Test DELETE");
+  }
+
+  deleteGameData(gameId: string) {
+    this.gameService.deleteGame(gameId).subscribe(
+      (response) => {
+        console.log('Game deleted successfully:', response);
+      },
+      (error) => {
+        console.error('Error deleting game:', error);
+      }
+    );
   }
 
   newGet(gameId: string) {
