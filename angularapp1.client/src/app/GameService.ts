@@ -21,4 +21,11 @@ export class GameService {
     //return this.http.get(`${this.apiUrl}/${gameId}`, { params });  // Make the GET request
     return this.http.get(`${this.apiUrl}/${gameId}`); 
   }
+
+  updateGame(gameId: string, updatedData: any): Observable<any> {
+    this.apiUrl = isDevMode() ? 'http://127.0.0.1:8000/update_game' : 'https://www.thedummystoretest.site/update_game';
+    const url = `${this.apiUrl}/${gameId}`;
+    console.log(`Sending PUT request to: ${url}`);
+    return this.http.put(url, updatedData);
+  }
 }
