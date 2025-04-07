@@ -50,8 +50,10 @@ export class AppComponent implements OnInit {
   id: any;
   ngOnInit() {
     //this.getGameState();
-    let id = this.createGame();
-    console.log("Test B: " + id);
+    //let id = this.createGame();
+    //console.log("Test B: " + id);
+    console.log("Start Put test");
+    this.updateData();
   }
 
   newGet(gameId: string) {
@@ -64,6 +66,16 @@ export class AppComponent implements OnInit {
         console.error('Error fetching game data:', error);
       }
     );
+  }
+
+  updateData() {
+    this.gameService.updateGame('abc123', {
+      player: 'Player 1',
+      score: 99
+    }).subscribe({
+      next: (response) => console.log('Updated!', response),
+      error: (err) => console.error('Update failed', err)
+    });
   }
 
   getGameState() {
