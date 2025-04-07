@@ -57,7 +57,7 @@ export class AppComponent implements OnInit {
   newGet(gameId: string) {
     this.gameService.getGame(gameId).subscribe(
       data => {
-        console.log('Game data:', data);
+        console.log('Game data received:', data);
         this.gameData = data;  // Store the response data
       },
       error => {
