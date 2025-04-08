@@ -50,7 +50,7 @@ export class AppComponent implements OnInit {
   id: any;
   ngOnInit() {
     //this.getGameState();
-    //let id = this.createGame();
+    let id = this.createGame();
     //console.log("Test B: " + id);
     console.log("Start Put test");
     this.updateData();
@@ -60,7 +60,7 @@ export class AppComponent implements OnInit {
   deleteGameData(gameId: string) {
     this.gameService.deleteGame(gameId).subscribe(
       (response) => {
-        console.log('Game deleted successfully:', response);
+        console.log('DELETE Success:', response);
       },
       (error) => {
         console.error('Error deleting game:', error);
@@ -71,7 +71,7 @@ export class AppComponent implements OnInit {
   newGet(gameId: string) {
     this.gameService.getGame(gameId).subscribe(
       data => {
-        console.log('Game data received:', data);
+        console.log('GET Success:', data);
         this.gameData = data;  // Store the response data
       },
       error => {
@@ -85,7 +85,7 @@ export class AppComponent implements OnInit {
       player: 'Player 1',
       score: 99
     }).subscribe({
-      next: (response) => console.log('Updated!', response),
+      next: (response) => console.log('PUT Success!', response),
       error: (err) => console.error('Update failed', err)
     });
   }
@@ -151,7 +151,7 @@ export class AppComponent implements OnInit {
     this.http.post(url, dominoOne, httpOptions).subscribe(
       (result) => {
         let testvalue = this.newGet(JSON.stringify(result));
-        console.log("testvalue: " + result);
+        console.log("PUT Success: " + result);
       },
       (error) => {
         console.error(error);

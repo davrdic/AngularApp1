@@ -19,6 +19,7 @@ export class GameService {
     //console.log('params: ' + params);
 
     //return this.http.get(`${this.apiUrl}/${gameId}`, { params });  // Make the GET request
+    this.apiUrl = isDevMode() ? 'http://127.0.0.1:8000/game_state' : 'https://www.thedummystoretest.site/game_state';
     return this.http.get(`${this.apiUrl}/${gameId}`); 
   }
 
