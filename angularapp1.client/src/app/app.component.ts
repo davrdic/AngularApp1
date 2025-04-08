@@ -22,6 +22,13 @@ interface GameState {
 
 export class AppComponent implements OnInit {
 
+  userEnteredGameName: string = '';
+
+  createGameClick() {
+    console.log('userEnteredGameName: ', this.userEnteredGameName);
+    this.createGameByName();
+  }
+
   public gameState: GameState = {
     date: '',
     temperatureC: 0,
@@ -54,10 +61,9 @@ export class AppComponent implements OnInit {
   gameData: any;
   id: any;
   ngOnInit() {
-    let id = this.createGame();
-    console.log("Start Put test");
-    this.updateData();
-    this.deleteGameData("Test DELETE");
+    //console.log("Start Put test");
+    //this.updateData();
+    //this.deleteGameData("Test DELETE");
   }
 
   deleteGameData(gameId: string) {
@@ -105,13 +111,21 @@ export class AppComponent implements OnInit {
     );
   }
 
-  createGame() {
+  createGameByName() {
+    console.log("Start Create Game Call");
+    this.gameService.postGameByName(this.userEnteredGameName).subscribe({
+      next: (response) => {
+        console.log('POST Success! ', response);
+      },
+      error: (err) => console.error('POST failed', err)
+    });
+  };
 
-    console.log("Here");
+  createGame() {
+    console.log("Start Create Game Call");
     this.gameService.postGame(this.dominoOne).subscribe({
       next: (response) => {
         console.log('POST Success! ', response);
-        this.newGet(JSON.stringify(response));
       },
       error: (err) => console.error('POST failed', err)
     });

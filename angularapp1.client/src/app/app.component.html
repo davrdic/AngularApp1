@@ -5,24 +5,28 @@
 <p *ngIf="!gameState"><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.</em></p>
 
 <table *ngIf="gameState">
-    <thead>
-        <tr>
-            <th>Game ID</th>
-            <th>Player ID</th>
-            <th>Arena 1</th>
-            <th>Arena 2</th>
-            <th>Arena 3</th>
-            <th>Arena 4</th>
-        </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>{{ gameState.date }}</td>
-        <td>{{ gameState.temperatureC }}</td>
-        <td>{{ gameState.temperatureF }}</td>
-        <td>{{ gameState.summary }}</td>
-        <td>{{ gameState.domino }}</td>
-        <td>{{ gameState.domino }}</td>
-      </tr>
-    </tbody>
+  <thead>
+    <tr>
+      <th>Game ID</th>
+      <th>Player ID</th>
+      <th>Arena 1</th>
+      <th>Arena 2</th>
+      <th>Arena 3</th>
+      <th>Arena 4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ gameState.date }}</td>
+      <td>{{ gameState.temperatureC }}</td>
+      <td>{{ gameState.temperatureF }}</td>
+      <td>{{ gameState.summary }}</td>
+      <td>{{ gameState.domino }}</td>
+      <td>{{ gameState.domino }}</td>
+    </tr>
+  </tbody>
 </table>
+<div>
+  <button (click)="createGameClick()">Create Game</button>
+  <input type="text" [(ngModel)]="userEnteredGameName" placeholder="Create a game name" />
+</div>

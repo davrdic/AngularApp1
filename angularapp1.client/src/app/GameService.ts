@@ -20,6 +20,10 @@ export class GameService {
     return this.http.post(`${this.apiUrl}/create_game`, domino);  // Corrected to POST, and expecting the correct data format
   }
 
+  postGameByName(gameName: string) {
+    return this.http.post(`${this.apiUrl}/create_game_by_name/${gameName}`, gameName);  // Corrected to POST, and expecting the correct data format
+  }
+
   updateGame(gameId: string, updatedData: any): Observable<any> {
     const url = `${this.apiUrl}/update_game/${gameId}`;
     console.log(`Sending PUT request to: ${url}`);
