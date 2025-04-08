@@ -21,7 +21,7 @@ export class GameService {
   }
 
   postGameByName(gameName: string) {
-    return this.http.post(`${this.apiUrl}/create_game_by_name/${gameName}`, gameName);  // Corrected to POST, and expecting the correct data format
+    return this.http.post(`${this.apiUrl}/create_game_by_name/${gameName}`, null);  // Corrected to POST, and expecting the correct data format
   }
 
   updateGame(gameId: string, updatedData: any): Observable<any> {
