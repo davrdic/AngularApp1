@@ -13,10 +13,6 @@ interface GameState {
   domino: string;
 }
 
-interface GameStateJsons {
-  domino: JSON
-}
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -25,7 +21,6 @@ interface GameStateJsons {
 })
 
 export class AppComponent implements OnInit {
-  //public gameStates: GameState[] = [];
 
   public gameState: GameState = {
     date: '',
@@ -35,23 +30,31 @@ export class AppComponent implements OnInit {
     domino: ''
   }
 
+  private dominoOne = {
+    side_a: 0,
+    side_b: 0
+  };
 
+  private dominoTwo = {
+    side_a: 1,
+    side_b: 1
+  };
 
-  //public domino = new Domino(0, 0);
-  public hand = new Hand();
+  private dominoThree = {
+    side_a: 1,
+    side_b: 1
+  };
 
-  //public hand: Hand = {
-  //  dOne: { sideA: 0 , sideB: 0},
-  //  dTwo: { sideA: 0, sideB: 0}
-  //}
+  private hand = {
+    domino_one: this.dominoOne,
+    domino_two: this.dominoTwo
+  }
 
-  constructor(private http: HttpClient, private gameService: GameService) {}
+  constructor(private http: HttpClient, private gameService: GameService) { }
   gameData: any;
   id: any;
   ngOnInit() {
-    //this.getGameState();
     let id = this.createGame();
-    //console.log("Test B: " + id);
     console.log("Start Put test");
     this.updateData();
     this.deleteGameData("Test DELETE");
@@ -72,7 +75,7 @@ export class AppComponent implements OnInit {
     this.gameService.getGame(gameId).subscribe(
       data => {
         console.log('GET Success:', data);
-        this.gameData = data;  // Store the response data
+        this.gameData = data;
       },
       error => {
         console.error('Error fetching game data:', error);
@@ -94,17 +97,7 @@ export class AppComponent implements OnInit {
     let url: string = isDevMode() ? '/game_state' : 'https://www.thedummystoretest.site/game_state';
     this.http.get<GameState>(url).subscribe(
       (result) => {
-        //let domino = new Domino(0, 0);
         this.gameState = result;
-        let dominoesJson = JSON.parse(this.gameState.domino);
-        this.hand.dOne.sideA = dominoesJson.d_one.side_a;
-        this.hand.dOne.sideB = dominoesJson.d_two.side_a;
-        //this.hand = dominoesJson;
-        //console.log(this.hand.dOne.sideA + this.hand.dOne.sideB);
-
-        let playerOneHand = JSON.parse(this.gameState.domino);
-        //this.hand.dOne.sideA = playerOneHand.d_one.side_a;
-        //console.log(this.hand.dOne.sideA);
       },
       (error) => {
         console.error(error);
@@ -112,53 +105,16 @@ export class AppComponent implements OnInit {
     );
   }
 
-  createGame(): string {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        //'Content-Type': 'application/json'
-        //'Access-Control-Allow-Origin': '*'
-      })
-    };
+  createGame() {
+
     console.log("Here");
-
-    const dominoOne = {
-      side_a: 0,
-      side_b: 0
-    };
-
-    const dominoTwo = {
-      side_a: 1,
-      side_b: 1
-    };
-
-    const dominoThree = {
-      side_a: 1,
-      side_b: 1
-    };
-
-    const hand = {
-      domino_one: dominoOne,
-      domino_two: dominoTwo,
-      domino_three: dominoThree
-    }
-
-    //console.log("test: " + test);
-    let url: string = isDevMode() ? '/create_game' : 'https://www.thedummystoretest.site/create_game';
-    console.log("url: " + url);
-
-    //this.http.post(url, JSON.stringify({ key1: 'value1', key2: 'value2' }), httpOptions).subscribe(
-    let myString: string = '{"d_one":{"side_a": 1, "side_b":1},"d_two":{"side_a": 2,"side_b": 2}}';
-    this.http.post(url, dominoOne, httpOptions).subscribe(
-      (result) => {
-        let testvalue = this.newGet(JSON.stringify(result));
-        console.log("PUT Success: " + result);
+    this.gameService.postGame(this.dominoOne).subscribe({
+      next: (response) => {
+        console.log('POST Success! ', response);
+        this.newGet(JSON.stringify(response));
       },
-      (error) => {
-        console.error(error);
-        return 'fail';
-      }
-    )
-    return 'hello';
+      error: (err) => console.error('POST failed', err)
+    });
   };
 
   title = 'angularapp1.client';
