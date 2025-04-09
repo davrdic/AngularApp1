@@ -2,30 +2,49 @@
 
 <p>A game for Dummies</p>
 
-<p *ngIf="!gameState"><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.</em></p>
+<p *ngIf="!game"><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.</em></p>
 
-<table *ngIf="gameState">
-  <thead>
-    <tr>
-      <th>Game ID</th>
-      <th>Game Name</th>
-      <th>Arena 1</th>
-      <th>Arena 2</th>
-      <th>Arena 3</th>
-      <th>Arena 4</th>
-    </tr>
-  </thead>
+<table *ngIf="game" border="1" style="border-collapse: collapse;">
   <tbody>
     <tr>
+      <th>Game ID</th>
       <td>{{ game.id }}</td>
+    </tr>
+    <tr>
+      <th>Game Name</th>
       <td>{{ game.name }}</td>
-      <td>{{ gameState.temperatureF }}</td>
-      <td>{{ gameState.summary }}</td>
-      <td>{{ gameState.domino }}</td>
-      <td>{{ gameState.domino }}</td>
+    </tr>
+    <tr>
+      <th>Player Turn</th>
+      <td>{{ game.playerTurn }}</td>
+    </tr>
+    <tr *ngFor="let slot of game.arena.slots; let i = index">
+      <th>Arena Slot {{ i + 1 }}</th>
+      <td>
+        <ng-container *ngIf="slot; else emptySlot">
+          [{{ slot.sideA }}|{{ slot.sideB }}]
+        </ng-container>
+        <ng-template #emptySlot>
+          <em>Empty</em>
+        </ng-template>
+      </td>
+    </tr>
+    <tr>
+      <th>ScoreCard</th>
+      <td>{{ game.scoreCard.teamScores | json }}</td>
+    </tr>
+    <tr *ngFor="let hand of game.playerHands; let i = index">
+      <th>Player {{ i + 1 }} Hand</th>
+      <td>
+        <span *ngFor="let domino of hand; let j = index">
+          [{{ domino.sideA }}|{{ domino.sideB }}]
+          <span *ngIf="j < hand.length - 1">, </span>
+        </span>
+      </td>
     </tr>
   </tbody>
 </table>
+
 <div>
   <button (click)="createGameClick()">Create Game</button>
   <input type="text" [(ngModel)]="userEnteredGameName" placeholder="Enter new game name" />

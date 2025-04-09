@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpParameterCodec, HttpParams } from '@angula
 import { Component, OnInit } from '@angular/core';
 import { isDevMode } from '@angular/core';
 import { Domino } from '../classes/Domino';
-import { Hand } from '../classes/Domino';
+import { initialGameState } from '../classes/Domino';
 import { GameService } from './GameService';
 
 interface GameState {
@@ -11,11 +11,6 @@ interface GameState {
   temperatureF: number;
   summary: string;
   domino: string;
-}
-
-interface Game {
-  id: number;
-  name: string;
 }
 
 @Component({
@@ -40,10 +35,7 @@ export class AppComponent implements OnInit {
     this.findGameByName(this.gameToLoad);
   }
 
-  public game: Game = {
-    id: 0,
-    name: ''
-  }
+  public game = initialGameState;
 
   public gameState: GameState = {
     date: '',
@@ -58,28 +50,9 @@ export class AppComponent implements OnInit {
     side_b: 0
   };
 
-  private dominoTwo = {
-    side_a: 1,
-    side_b: 1
-  };
-
-  private dominoThree = {
-    side_a: 1,
-    side_b: 1
-  };
-
-  private hand = {
-    domino_one: this.dominoOne,
-    domino_two: this.dominoTwo
-  }
-
   constructor(private http: HttpClient, private gameService: GameService) { }
-  gameData: any;
-  id: any;
+
   ngOnInit() {
-    //console.log("Start Put test");
-    //this.updateData();
-    //this.deleteGameData("Test DELETE");
   }
 
   deleteGameData(gameId: string) {
@@ -98,6 +71,9 @@ export class AppComponent implements OnInit {
       data => {
         console.log('GET findGameByName:', data);
         this.game = data;
+        console.log('this.game: ', this.game);
+        console.log('this.game.id: ', this.game.id);
+        console.log('this.game.arena: ', this.game.arena);
       },
       error => {
         console.error('Error fetching game data:', error);
