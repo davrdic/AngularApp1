@@ -23,19 +23,50 @@ table {
 }
 
 .container {
-  display: flex;
-  flex-direction: row; /* Arrange button and inputs horizontally */
-  align-items: center; /* Align items vertically */
-  justify-content: center; /* Center items inside the container */
+  text-align: center;
+  margin-top: 50px;
 }
 
-.buttons {
+.control-panel {
   display: flex;
-  flex-direction: column; /* Stack buttons vertically */
-  margin-right: 20px; /* Space between buttons and inputs */
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
 }
 
+.form-row {
+  display: flex;
+  align-items: stretch;
+  gap: 10px; /* Space between button and input */
+  justify-content: center; /* Optional: centers the whole row */
+}
+
+.buttons,
 .inputs {
   display: flex;
-  flex-direction: column; /* Align input fields vertically */
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
+
+.dropdown {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #ccc;
+  max-height: 150px;
+  overflow-y: auto;
+  text-align: left;
+  background: white;
+  position: relative;
+  z-index: 10;
+}
+
+  .dropdown li {
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+
+    .dropdown li:hover {
+      background-color: #f0f0f0;
+    }

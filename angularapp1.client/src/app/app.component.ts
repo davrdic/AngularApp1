@@ -24,12 +24,17 @@ export class AppComponent implements OnInit {
 
   userEnteredGameName: string = '';
   gameToLoad: string = '';
+  searchQuery: string = '';
+  filteredList: any[] = [];
+  showSuggestions: boolean = false;
+
 
   createGameClick() {
     console.log('userEnteredGameName: ', this.userEnteredGameName);
     this.createGameByName();
     this.userEnteredGameName = '';
     this.gameToLoad = '';
+    this.searchQuery = '';
   }
 
   loadGameClick() {
@@ -37,6 +42,46 @@ export class AppComponent implements OnInit {
     this.findGameByName(this.gameToLoad);
     this.userEnteredGameName = '';
     this.gameToLoad = '';
+    this.searchQuery = '';
+  }
+
+  onInputClick() {
+    console.log("Test");
+    this.showSuggestions = true;
+    this.filteredList = ["game1", "game2"]
+    //this.findAllGameNames()
+  }
+
+  onInputChange(event: any) {
+    const value = event.target.value;
+    console.log("Typing:", value);
+    // Filter the list of games, or call a search API
+  }
+
+  selectSuggestion(event: any) {
+    const value = event.target.value;
+    console.log("Typing:", value);
+    // Filter the list of games, or call a search API
+  }
+
+  hideSuggestions() {
+    console.log("hideSuggestions");
+  }
+
+  filterSuggestions() {
+    console.log("Enter pressed");
+  }
+
+  handleEnter() {
+    console.log("Enter pressed");
+  }
+
+  onInputEnter() {
+    console.log("Enter pressed");
+  }
+
+  selectGame(gameName: string) {
+    console.log("selectGame");
   }
 
   public game = initialGameState;
@@ -60,28 +105,24 @@ export class AppComponent implements OnInit {
   }
 
   deleteGameData(gameId: string) {
-    this.gameService.deleteGame(gameId).subscribe(
-      (response) => {
-        console.log('DELETE Success:', response);
+    this.gameService.deleteGame(gameId).subscribe({
+      next: (response) => {
+        console.log('deleteGameData ', gameId, ' success: ', this.game)
+        this.game = response;
       },
-      (error) => {
-        console.error('Error deleting game:', error);
-      }
+      error: (err) => console.error('deleteGameData failed: ', err)
+    }
     );
   }
 
   findGameByName(gameName: string) {
-    this.gameService.findGameByName(gameName).subscribe(
-      data => {
-        console.log('GET findGameByName:', data);
-        this.game = data;
-        console.log('this.game: ', this.game);
-        console.log('this.game.id: ', this.game.id);
-        console.log('this.game.arena: ', this.game.arena);
+    this.gameService.findGameByName(gameName).subscribe({
+      next: (response) => {
+        console.log('findGameByName ', gameName, ' success: ', this.game)
+        this.game = response;
       },
-      error => {
-        console.error('Error fetching game data:', error);
-      }
+      error: (err) => console.error('findGameByName failed: ', err)
+    }
     );
   }
 
@@ -93,18 +134,6 @@ export class AppComponent implements OnInit {
       next: (response) => console.log('PUT Success!', response),
       error: (err) => console.error('Update failed', err)
     });
-  }
-
-  getGameState() {
-    let url: string = isDevMode() ? '/game_state' : 'https://www.thedummystoretest.site/game_state';
-    this.http.get<GameState>(url).subscribe(
-      (result) => {
-        this.gameState = result;
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
   }
 
   createGameByName() {
@@ -127,6 +156,16 @@ export class AppComponent implements OnInit {
       error: (err) => console.error('POST failed', err)
     });
   };
+
+  findAllGameNames() {
+    this.gameService.findAllGameNames().subscribe({
+      next: (response) => {
+        console.log('FindAllGameNames success: ', response)
+        this.filteredList = response;
+      },
+      error: (err) => console.error('FindAllGameNames failed: ', err)
+    })
+  }
 
   title = 'angularapp1.client';
 }
