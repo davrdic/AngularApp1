@@ -8,7 +8,7 @@
   <thead>
     <tr>
       <th>Game ID</th>
-      <th>Player ID</th>
+      <th>Game Name</th>
       <th>Arena 1</th>
       <th>Arena 2</th>
       <th>Arena 3</th>
@@ -17,8 +17,8 @@
   </thead>
   <tbody>
     <tr>
-      <td>{{ gameState.date }}</td>
-      <td>{{ gameState.temperatureC }}</td>
+      <td>{{ game.id }}</td>
+      <td>{{ game.name }}</td>
       <td>{{ gameState.temperatureF }}</td>
       <td>{{ gameState.summary }}</td>
       <td>{{ gameState.domino }}</td>
@@ -28,5 +28,7 @@
 </table>
 <div>
   <button (click)="createGameClick()">Create Game</button>
-  <input type="text" [(ngModel)]="userEnteredGameName" placeholder="Create a game name" />
+  <input type="text" [(ngModel)]="userEnteredGameName" placeholder="Enter new game name" />
+  <button (click)="loadGameClick()">Load Game</button>
+  <input type="text" [(ngModel)]="gameToLoad" placeholder="Load a game" />
 </div>
