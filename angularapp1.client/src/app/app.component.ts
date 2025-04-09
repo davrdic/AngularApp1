@@ -13,6 +13,11 @@ interface GameState {
   domino: string;
 }
 
+interface Game {
+  id: number;
+  name: string;
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -23,10 +28,21 @@ interface GameState {
 export class AppComponent implements OnInit {
 
   userEnteredGameName: string = '';
+  gameToLoad: string = '';
 
   createGameClick() {
     console.log('userEnteredGameName: ', this.userEnteredGameName);
     this.createGameByName();
+  }
+
+  loadGameClick() {
+    console.log('gameToLoad: ', this.gameToLoad);
+    this.findGameByName(this.gameToLoad);
+  }
+
+  public game: Game = {
+    id: 0,
+    name: ''
   }
 
   public gameState: GameState = {
@@ -77,11 +93,11 @@ export class AppComponent implements OnInit {
     );
   }
 
-  newGet(gameId: string) {
-    this.gameService.getGame(gameId).subscribe(
+  findGameByName(gameName: string) {
+    this.gameService.findGameByName(gameName).subscribe(
       data => {
-        console.log('GET Success:', data);
-        this.gameData = data;
+        console.log('GET findGameByName:', data);
+        this.game = data;
       },
       error => {
         console.error('Error fetching game data:', error);

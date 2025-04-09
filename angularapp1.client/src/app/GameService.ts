@@ -12,8 +12,8 @@ export class GameService {
 
   constructor(private http: HttpClient) { }
 
-  getGame(gameId: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/game_state/${gameId}`); 
+  findGameByName(name: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/find_game_by_name/${name}`); 
   }
 
   postGame(domino: any) {
