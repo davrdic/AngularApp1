@@ -20,7 +20,7 @@ export class GameService {
     return this.http.post(`${this.apiUrl}/create_game`, domino);  // Corrected to POST, and expecting the correct data format
   }
 
-  postGameByName(gameName: string) {
+  postGameByName(gameName: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/create_game_by_name/${gameName}`, null);  // Corrected to POST, and expecting the correct data format
   }
 

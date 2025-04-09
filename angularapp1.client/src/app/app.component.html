@@ -2,9 +2,7 @@
 
 <p>A game for Dummies</p>
 
-<p *ngIf="!game"><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationangular">https://aka.ms/jspsintegrationangular</a> for more details.</em></p>
-
-<table *ngIf="game" border="1" style="border-collapse: collapse;">
+<table *ngIf="game.id" border="1" style="border-collapse: collapse;">
   <tbody>
     <tr>
       <th>Game ID</th>
@@ -45,9 +43,13 @@
   </tbody>
 </table>
 
-<div>
-  <button (click)="createGameClick()">Create Game</button>
-  <input type="text" [(ngModel)]="userEnteredGameName" placeholder="Enter new game name" />
-  <button (click)="loadGameClick()">Load Game</button>
-  <input type="text" [(ngModel)]="gameToLoad" placeholder="Load a game" />
+<div class="container">
+  <div class="buttons">
+    <button (click)="createGameClick()">Create Game</button>
+    <button (click)="loadGameClick()">Load Game</button>
+  </div>
+  <div class="inputs">
+    <input type="text" [(ngModel)]="userEnteredGameName" (keydown.enter)="createGameClick()" placeholder="Enter new game name" />
+    <input type="text" [(ngModel)]="gameToLoad" (keydown.enter)="loadGameClick()" placeholder="Load a game" />
+  </div>
 </div>
