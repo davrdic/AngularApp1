@@ -28,11 +28,15 @@ export class AppComponent implements OnInit {
   createGameClick() {
     console.log('userEnteredGameName: ', this.userEnteredGameName);
     this.createGameByName();
+    this.userEnteredGameName = '';
+    this.gameToLoad = '';
   }
 
   loadGameClick() {
     console.log('gameToLoad: ', this.gameToLoad);
     this.findGameByName(this.gameToLoad);
+    this.userEnteredGameName = '';
+    this.gameToLoad = '';
   }
 
   public game = initialGameState;
@@ -108,6 +112,7 @@ export class AppComponent implements OnInit {
     this.gameService.postGameByName(this.userEnteredGameName).subscribe({
       next: (response) => {
         console.log('POST Success! ', response);
+        this.game = response;
       },
       error: (err) => console.error('POST failed', err)
     });

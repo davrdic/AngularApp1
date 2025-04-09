@@ -1,7 +1,16 @@
-﻿:host {
+:host {
     max-width: 1280px;
     padding: 2rem;
     text-align: center;
+}
+
+/* Center the container on the page */
+body {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 100vh; /* Use full viewport height */
+  margin: 0; /* Remove default margin */
 }
 
 th, td {
@@ -11,4 +20,22 @@ th, td {
 
 table {
     margin: 0 auto;
+}
+
+.container {
+  display: flex;
+  flex-direction: row; /* Arrange button and inputs horizontally */
+  align-items: center; /* Align items vertically */
+  justify-content: center; /* Center items inside the container */
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically */
+  margin-right: 20px; /* Space between buttons and inputs */
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column; /* Align input fields vertically */
 }
