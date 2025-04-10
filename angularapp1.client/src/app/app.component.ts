@@ -5,14 +5,6 @@ import { Domino } from '../classes/Domino';
 import { initialGameState } from '../classes/Domino';
 import { GameService } from './GameService';
 
-interface GameState {
-  date: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
-  domino: string;
-}
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -27,6 +19,7 @@ export class AppComponent implements OnInit {
   searchQuery: string = '';
   filteredList: string[] = [];
   showSuggestions: boolean = false;
+  bid: number | null = null;
 
 
   createGameClick() {
@@ -66,10 +59,11 @@ export class AppComponent implements OnInit {
 
   selectSuggestion(event: any) {
     const value = event.target.innerText;
-    console.log("Typing:", value);
     this.searchQuery = value;
-    // Filter the list of games, or call a search API
-  }
+    this.findGameByName(this.searchQuery);
+    this.userEnteredGameName = '';
+    this.gameToLoad = '';
+    this.searchQuery = '';  }
 
   hideSuggestions() {
     console.log("hideSuggestions");
@@ -94,15 +88,16 @@ export class AppComponent implements OnInit {
     console.log("selectGame");
   }
 
-  public game = initialGameState;
-
-  public gameState: GameState = {
-    date: '',
-    temperatureC: 0,
-    temperatureF: 0,
-    summary: '',
-    domino: ''
+  placeBidClick() {
+    console.log("placeBidClick", this.bid);
   }
+
+  playDominoClick(index: number) {
+    console.log("playDominoClick :", index);
+    this.game.playerHands[0].splice(index, 1);
+  }
+
+  public game = initialGameState;
 
   private dominoOne = {
     side_a: 0,

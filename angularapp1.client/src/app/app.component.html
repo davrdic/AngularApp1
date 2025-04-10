@@ -93,5 +93,24 @@
       </div>
     </div>
   </div>
+
+  <div class="form-row">
+    <div class="buttons">
+      <button (click)="placeBidClick()">Place Bid</button>
+    </div>
+    <div class="inputs">
+      <input type="text"
+             [(ngModel)]="bid"
+             (keydown.enter)="placeBidClick()"
+             placeholder="Enter bid..." />
+    </div>
+  </div>
+
+  <div class="container" *ngFor="let domino of game.playerHands[0]; let i = index">
+    <div class="buttons">
+      <button (click)="playDominoClick(i)">[{{domino.sideA}}|{{domino.sideB}}]</button>
+    </div>
+  </div>
+
 </div>
 
