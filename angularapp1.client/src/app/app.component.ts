@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
   userEnteredGameName: string = '';
   gameToLoad: string = '';
   searchQuery: string = '';
-  filteredList: any[] = [];
+  filteredList: string[] = [];
   showSuggestions: boolean = false;
 
 
@@ -37,19 +37,25 @@ export class AppComponent implements OnInit {
     this.searchQuery = '';
   }
 
-  loadGameClick() {
-    console.log('gameToLoad: ', this.gameToLoad);
-    this.findGameByName(this.gameToLoad);
+  loadGame() {
+    console.log('gameToLoad: ', this.searchQuery);
+    this.findGameByName(this.searchQuery);
     this.userEnteredGameName = '';
     this.gameToLoad = '';
     this.searchQuery = '';
   }
 
   onInputClick() {
+    if (this.showSuggestions) {
+      this.showSuggestions = false;
+    }
     console.log("Test");
+    if (this.filteredList.length === 0) {
+      console.log("finding...");
+      this.findAllGameNames();
+    }
     this.showSuggestions = true;
-    this.filteredList = ["game1", "game2"]
-    //this.findAllGameNames()
+    console.log('this.filteredList: ', this.filteredList)
   }
 
   onInputChange(event: any) {
@@ -59,25 +65,29 @@ export class AppComponent implements OnInit {
   }
 
   selectSuggestion(event: any) {
-    const value = event.target.value;
+    const value = event.target.innerText;
     console.log("Typing:", value);
+    this.searchQuery = value;
     // Filter the list of games, or call a search API
   }
 
   hideSuggestions() {
     console.log("hideSuggestions");
+    this.showSuggestions = false;
   }
 
   filterSuggestions() {
-    console.log("Enter pressed");
+    console.log("filterSuggestions pressed");
   }
 
   handleEnter() {
-    console.log("Enter pressed");
+    console.log("handleEnter pressed");
+    this.loadGame();
   }
 
   onInputEnter() {
-    console.log("Enter pressed");
+    console.log("onInputEnter pressed");
+    this.loadGame();
   }
 
   selectGame(gameName: string) {
@@ -160,10 +170,13 @@ export class AppComponent implements OnInit {
   findAllGameNames() {
     this.gameService.findAllGameNames().subscribe({
       next: (response) => {
-        console.log('FindAllGameNames success: ', response)
+        console.log('FindAllGameNames success: ', response);
         this.filteredList = response;
       },
-      error: (err) => console.error('FindAllGameNames failed: ', err)
+      error: (err) => {
+        console.error('FindAllGameNames failed: ', err);
+        this.filteredList = [];
+      }
     })
   }
 

@@ -33,6 +33,7 @@ button, input {
 }
 
 .container {
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
   gap: 1rem; /* Adds space between the rows */

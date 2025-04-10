@@ -16,8 +16,8 @@ export class GameService {
     return this.http.get(`${this.apiUrl}/find_game_by_name/${name}`); 
   }
 
-  findAllGameNames(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/find_all_game_names/`);
+  findAllGameNames(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.apiUrl}/find_all_game_names/`);
   }
 
   postGame(domino: any) {

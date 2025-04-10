@@ -18,6 +18,10 @@ export interface ScoreCard {
 export interface Game {
   id: number;
   name: string;
+  dealer: number;
+  roundLeader: number;
+  spade: number;
+  bid: number;
   playerHands: Hands;      // e.g. [ [d1, d2, ...], [d1, d2, ...] ]
   arena: Arena;            // arena.slots[0] = player one’s domino
   scoreCard: ScoreCard;
@@ -27,6 +31,10 @@ export interface Game {
 export const initialGameState: Game = {
   id: 0,
   name: '',
+  dealer: 0,
+  roundLeader: -1,
+  spade: -1,
+  bid: 0,
   playerHands: [],
   arena: {
     slots: [null, null, null, null] // Each player's played domino
