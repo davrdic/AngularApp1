@@ -1,6 +1,6 @@
-<h1 id="tableLabel">Shoot the Moon</h1>
+<h1 id="tableLabel">Stars</h1>
 
-<p>A game for Dummies</p>
+<p>Let's Align</p>
 
 <table *ngIf="game.id" border="1" style="border-collapse: collapse;">
   <tbody>
@@ -11,6 +11,22 @@
     <tr>
       <th>Game Name</th>
       <td>{{ game.name }}</td>
+    </tr>
+    <tr>
+      <th>Dealer</th>
+      <td>{{ game.dealer }}</td>
+    </tr>
+    <tr>
+      <th>Round Leader</th>
+      <td>{{ game.roundLeader }}</td>
+    </tr>
+    <tr>
+      <th>Spade</th>
+      <td>{{ game.spade }}</td>
+    </tr>
+    <tr>
+      <th>Bid</th>
+      <td>{{ game.bid }}</td>
     </tr>
     <tr>
       <th>Player Turn</th>
@@ -44,12 +60,38 @@
 </table>
 
 <div class="container">
-  <div class="buttons">
-    <button (click)="createGameClick()">Create Game</button>
-    <button (click)="loadGameClick()">Load Game</button>
+  <div class="form-row">
+    <div class="buttons">
+      <button (click)="createGameClick()">Create Game</button>
+    </div>
+    <div class="inputs">
+      <input type="text"
+             [(ngModel)]="userEnteredGameName"
+             (keydown.enter)="createGameClick()"
+             placeholder="Enter new game name" />
+    </div>
   </div>
-  <div class="inputs">
-    <input type="text" [(ngModel)]="userEnteredGameName" (keydown.enter)="createGameClick()" placeholder="Enter new game name" />
-    <input type="text" [(ngModel)]="gameToLoad" (keydown.enter)="loadGameClick()" placeholder="Load a game" />
+
+  <div class="form-row">
+    <div class="buttons">
+      <button (click)="onInputEnter()">Load Game</button>
+    </div>
+    <div class="inputs">
+      <div class="search-wrapper">
+        <input type="text"
+               [(ngModel)]="searchQuery"
+               (focus)="onInputClick()"
+               (blur)="hideSuggestions()"
+               (keydown.enter)="handleEnter()"
+               placeholder="Search..." />
+
+        <ul class="dropdown" *ngIf="showSuggestions && filteredList  && filteredList.length">
+          <li *ngFor="let item of filteredList" (mousedown)="selectSuggestion($event)">
+            {{ item }}
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
+
