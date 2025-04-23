@@ -1,46 +1,60 @@
 export interface Domino {
-  sideA: number;
-  sideB: number;
+  shortId: string;
+  highValue: number;
+  lowValue: number;
+  doublet: boolean;
 }
 
 export type Hand = Domino[];
-
 export type Hands = Hand[]; // One hand per player
-
-export interface Arena {
-  slots: (Domino | null)[]; // Index 0 = Player One, 1 = Player Two, etc.
-}
 
 export interface ScoreCard {
   teamScores: number[]; // [team1Score, team2Score]
 }
 
+export enum GameStatus {
+  WAITING = 'waiting',
+  BIDDING = 'bidding',
+  PLAYING = 'playing',
+  COMPLETE = 'complete'
+}
+
 export interface Game {
-  id: number;
-  name: string;
+  game_id: string;
+  game_name: string;
+  game_status: GameStatus;
+  current_round_id: string;
+  round_number: number;
+  current_player_id: number;
+  arena: Domino[];            // arena.slots[0] = player one’s domino
+  turn_order: number[];
+  hands: Domino[][];      // e.g. [ [d1, d2, ...], [d1, d2, ...] ]
+  game_complete: boolean;
+  score: number[];
   dealer: number;
   roundLeader: number;
   spade: number;
-  bid: number;
-  playerHands: Hands;      // e.g. [ [d1, d2, ...], [d1, d2, ...] ]
-  arena: Arena;            // arena.slots[0] = player one’s domino
-  scoreCard: ScoreCard;
+  highestBid: number;
+  winningBid: number;
   playerTurn: number;      // index of player whose turn it is
 }
 
 export const initialGameState: Game = {
-  id: 0,
-  name: '',
-  dealer: 0,
+  game_id: '',
+  game_name: '',
+  game_status: GameStatus.WAITING,
+  current_round_id: '',
+  round_number: -1,
+  current_player_id: -1,
+  arena: [],
+  turn_order: [],
+  hands: [],
+  game_complete: false,
+  score: [-1, -1],
+  dealer: -1,
+  highestBid: -1,
+  winningBid: -1,
   roundLeader: -1,
   spade: -1,
-  bid: 0,
-  playerHands: [],
-  arena: {
-    slots: [null, null, null, null] // Each player's played domino
-  },
-  scoreCard: {
-    teamScores: [0, 0] // Team 1 (players 1 & 3), Team 2 (players 2 & 4)
-  },
-  playerTurn: 0 // Player 1 starts
+  playerTurn: -1
 };
