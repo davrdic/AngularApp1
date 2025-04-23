@@ -22,6 +22,19 @@ table {
   margin: 0 auto;
 }
 
+.table-row {
+  display: flex;
+  gap: 20px; /* space between tables */
+}
+
+.table-player-data {
+    width: 25%
+}
+
+.table-game-container {
+  margin-bottom: 20px;
+}
+
 button, input {
   width: 80%;
   height: 100%; /* 🔑 Makes button/input stretch to fill container */

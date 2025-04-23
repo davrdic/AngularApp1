@@ -16,6 +16,10 @@ export class GameService {
     return this.http.get(`${this.apiUrl}/find_game_by_name/${name}`); 
   }
 
+  //findCurrentRound(gameId: string): Observable<any> {
+  //  return this.http.get(`${this.apiUrl}/find_current_round/${gameId}`);
+  //}
+
   findAllGameNames(): Observable<string[]> {
     return this.http.get<string[]>(`${this.apiUrl}/find_all_game_names/`);
   }
@@ -24,6 +28,7 @@ export class GameService {
     return this.http.post(`${this.apiUrl}/create_game`, domino);  // Corrected to POST, and expecting the correct data format
   }
 
+  //Doc this one:
   postGameByName(gameName: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/create_game_by_name/${gameName}`, null);  // Corrected to POST, and expecting the correct data format
   }

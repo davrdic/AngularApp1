@@ -1,65 +1,100 @@
 <h1 id="tableLabel">Stars</h1>
 
-<p>Let's Align</p>
+<p *ngIf="game.game_status=='waiting'">Let's Align</p>
 
-<table *ngIf="game.id" border="1" style="border-collapse: collapse;">
-  <tbody>
-    <tr>
-      <th>Game ID</th>
-      <td>{{ game.id }}</td>
-    </tr>
-    <tr>
-      <th>Game Name</th>
-      <td>{{ game.name }}</td>
-    </tr>
-    <tr>
-      <th>Dealer</th>
-      <td>{{ game.dealer }}</td>
-    </tr>
-    <tr>
-      <th>Round Leader</th>
-      <td>{{ game.roundLeader }}</td>
-    </tr>
-    <tr>
-      <th>Spade</th>
-      <td>{{ game.spade }}</td>
-    </tr>
-    <tr>
-      <th>Bid</th>
-      <td>{{ game.bid }}</td>
-    </tr>
-    <tr>
-      <th>Player Turn</th>
-      <td>{{ game.playerTurn }}</td>
-    </tr>
-    <tr *ngFor="let slot of game.arena.slots; let i = index">
-      <th>Arena Slot {{ i + 1 }}</th>
-      <td>
-        <ng-container *ngIf="slot; else emptySlot">
-          [{{ slot.sideA }}|{{ slot.sideB }}]
-        </ng-container>
-        <ng-template #emptySlot>
-          <em>Empty</em>
-        </ng-template>
-      </td>
-    </tr>
-    <tr>
-      <th>ScoreCard</th>
-      <td>{{ game.scoreCard.teamScores | json }}</td>
-    </tr>
-    <tr *ngFor="let hand of game.playerHands; let i = index">
-      <th>Player {{ i + 1 }} Hand</th>
-      <td>
-        <span *ngFor="let domino of hand; let j = index">
-          [{{ domino.sideA }}|{{ domino.sideB }}]
-          <span *ngIf="j < hand.length - 1">, </span>
-        </span>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-row">
+  <table class="table-player-data" *ngIf="game.game_id" border="1" style="border-collapse: collapse;">
+    <thead>
+      <tr>
+        <th *ngFor="let hand of game.hands; let i = index">
+          P. {{ i + 1 }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td *ngFor="let hand of game.hands">
+          <span *ngFor="let domino of hand; let j = index">
+            [{{ domino.highValue }}|{{ domino.lowValue }}]
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <table *ngIf="game.game_id" border="1" style="border-collapse: collapse;">
+    <tbody>
+      <tr>
+        <th>Game Name</th>
+        <td>{{ game.game_name }}</td>
+      </tr>
+      <tr *ngFor="let slot of game.arena; let i = index">
+        <th>Arena Slot {{ i + 1 }}</th>
+        <td>
+          <ng-container *ngIf="game.arena; else emptySlot">
+            [{{ slot.highValue }}|{{ slot.lowValue }}]
+          </ng-container>
+          <ng-template #emptySlot>
+            <em>Empty</em>
+          </ng-template>
+        </td>
+      </tr>
+      <tr>
+        <th>ScoreCard</th>
+        <td>{{ game.score }}</td>
+      </tr>
+      <tr>
+        <th>Turn Order</th>
+        <td>{{ game.turn_order }}</td>
+      </tr>
+      <tr>
+        <th>Current Player Turn</th>
+        <td>{{ game.current_player_id }}</td>
+      </tr>
+      <tr>
+        <th>Dealer</th>
+        <td>{{ game.dealer }}</td>
+      </tr>
+      <tr>
+        <th>Round Leader</th>
+        <td>{{ game.roundLeader }}</td>
+      </tr>
+      <tr>
+        <th>Spade</th>
+        <td>{{ game.spade }}</td>
+      </tr>
+      <tr>
+        <th>Highest Bid</th>
+        <td>{{ game.highestBid }}</td>
+      </tr>
+      <tr>
+        <th>Winning Bid</th>
+        <td>{{ game.winningBid }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-<div class="container">
+<div class="table-game-container">
+
+</div>
+<div class="form-row" *ngIf="game.game_status=='bidding'">
+  <div class="buttons">
+    <button (click)="placeBidClick()">Place Bid</button>
+  </div>
+  <div class="inputs">
+    <input type="text"
+           [(ngModel)]="bid"
+           (keydown.enter)="placeBidClick()"
+           placeholder="Enter bid..." />
+  </div>
+</div>
+<div class="container" *ngFor="let domino of game.hands[0]; let i = index">
+  <div class="buttons">
+    <button (click)="playDominoClick(i)">[{{domino.highValue}}|{{domino.lowValue}}]</button>
+  </div>
+</div>
+
+<div class="container" *ngIf="game.game_status=='waiting'">
   <div class="form-row">
     <div class="buttons">
       <button (click)="createGameClick()">Create Game</button>
@@ -93,24 +128,5 @@
       </div>
     </div>
   </div>
-
-  <div class="form-row">
-    <div class="buttons">
-      <button (click)="placeBidClick()">Place Bid</button>
-    </div>
-    <div class="inputs">
-      <input type="text"
-             [(ngModel)]="bid"
-             (keydown.enter)="placeBidClick()"
-             placeholder="Enter bid..." />
-    </div>
-  </div>
-
-  <div class="container" *ngFor="let domino of game.playerHands[0]; let i = index">
-    <div class="buttons">
-      <button (click)="playDominoClick(i)">[{{domino.sideA}}|{{domino.sideB}}]</button>
-    </div>
-  </div>
-
 </div>
 

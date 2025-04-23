@@ -94,7 +94,7 @@ export class AppComponent implements OnInit {
 
   playDominoClick(index: number) {
     console.log("playDominoClick :", index);
-    this.game.playerHands[0].splice(index, 1);
+    //this.game.playerHands[0].splice(index, 1);
   }
 
   public game = initialGameState;
@@ -141,12 +141,14 @@ export class AppComponent implements OnInit {
     });
   }
 
+  //Doc this one:
   createGameByName() {
     console.log("Start Create Game Call");
     this.gameService.postGameByName(this.userEnteredGameName).subscribe({
       next: (response) => {
         console.log('POST Success! ', response);
         this.game = response;
+        console.log('this.game: ', this.game);
       },
       error: (err) => console.error('POST failed', err)
     });
@@ -162,6 +164,7 @@ export class AppComponent implements OnInit {
     });
   };
 
+  //Doc this one:
   findAllGameNames() {
     this.gameService.findAllGameNames().subscribe({
       next: (response) => {
