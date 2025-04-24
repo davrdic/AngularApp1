@@ -42,20 +42,18 @@ export class AppComponent implements OnInit {
     if (this.showSuggestions) {
       this.showSuggestions = false;
     }
-    console.log("Test");
     if (this.filteredList.length === 0) {
       console.log("finding...");
       this.findAllGameNames();
     }
     this.showSuggestions = true;
-    console.log('this.filteredList: ', this.filteredList)
   }
 
-  onInputChange(event: any) {
-    const value = event.target.value;
-    console.log("Typing:", value);
-    // Filter the list of games, or call a search API
-  }
+  //onInputChange(event: any) {
+  //  const value = event.target.value;
+  //  console.log("Typing:", value);
+  //  // Filter the list of games, or call a search API
+  //}
 
   selectSuggestion(event: any) {
     const value = event.target.innerText;
@@ -109,39 +107,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
   }
 
-  deleteGameData(gameId: string) {
-    this.gameService.deleteGame(gameId).subscribe({
-      next: (response) => {
-        console.log('deleteGameData ', gameId, ' success: ', this.game)
-        this.game = response;
-      },
-      error: (err) => console.error('deleteGameData failed: ', err)
-    }
-    );
-  }
-
-  findGameByName(gameName: string) {
-    this.gameService.findGameByName(gameName).subscribe({
-      next: (response) => {
-        console.log('findGameByName ', gameName, ' success: ', this.game)
-        this.game = response;
-      },
-      error: (err) => console.error('findGameByName failed: ', err)
-    }
-    );
-  }
-
-  updateData() {
-    this.gameService.updateGame('abc123', {
-      player: 'Player 1',
-      score: 99
-    }).subscribe({
-      next: (response) => console.log('PUT Success!', response),
-      error: (err) => console.error('Update failed', err)
-    });
-  }
-
-  //Doc this one:
+  //Creates a new game by name
   createGameByName() {
     console.log("Start Create Game Call");
     this.gameService.postGameByName(this.userEnteredGameName).subscribe({
@@ -154,17 +120,19 @@ export class AppComponent implements OnInit {
     });
   };
 
-  createGame() {
-    console.log("Start Create Game Call");
-    this.gameService.postGame(this.dominoOne).subscribe({
+  //Finds a game by name
+  findGameByName(gameName: string) {
+    this.gameService.findGameByName(gameName).subscribe({
       next: (response) => {
-        console.log('POST Success! ', response);
+        console.log('findGameByName ', gameName, ' success: ', this.game)
+        this.game = response;
       },
-      error: (err) => console.error('POST failed', err)
-    });
-  };
+      error: (err) => console.error('findGameByName failed: ', err)
+    }
+    );
+  }
 
-  //Doc this one:
+  //Finds all available game names
   findAllGameNames() {
     this.gameService.findAllGameNames().subscribe({
       next: (response) => {
@@ -177,6 +145,29 @@ export class AppComponent implements OnInit {
       }
     })
   }
+
+  //deleteGameData(gameId: string) {
+  //  this.gameService.deleteGame(gameId).subscribe({
+  //    next: (response) => {
+  //      console.log('deleteGameData ', gameId, ' success: ', this.game)
+  //      this.game = response;
+  //    },
+  //    error: (err) => console.error('deleteGameData failed: ', err)
+  //  }
+  //  );
+  //}
+
+
+
+  //updateData() {
+  //  this.gameService.updateGame('abc123', {
+  //    player: 'Player 1',
+  //    score: 99
+  //  }).subscribe({
+  //    next: (response) => console.log('PUT Success!', response),
+  //    error: (err) => console.error('Update failed', err)
+  //  });
+  //}
 
   title = 'angularapp1.client';
 }

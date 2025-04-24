@@ -16,16 +16,8 @@ export class GameService {
     return this.http.get(`${this.apiUrl}/find_game_by_name/${name}`); 
   }
 
-  //findCurrentRound(gameId: string): Observable<any> {
-  //  return this.http.get(`${this.apiUrl}/find_current_round/${gameId}`);
-  //}
-
   findAllGameNames(): Observable<string[]> {
     return this.http.get<string[]>(`${this.apiUrl}/find_all_game_names/`);
-  }
-
-  postGame(domino: any) {
-    return this.http.post(`${this.apiUrl}/create_game`, domino);  // Corrected to POST, and expecting the correct data format
   }
 
   //Doc this one:
@@ -33,13 +25,17 @@ export class GameService {
     return this.http.post(`${this.apiUrl}/create_game_by_name/${gameName}`, null);  // Corrected to POST, and expecting the correct data format
   }
 
-  updateGame(gameId: string, updatedData: any): Observable<any> {
-    const url = `${this.apiUrl}/update_game/${gameId}`;
-    console.log(`Sending PUT request to: ${url}`);
-    return this.http.put(url, updatedData);
-  }
+  //updateGame(gameId: string, updatedData: any): Observable<any> {
+  //  const url = `${this.apiUrl}/update_game/${gameId}`;
+  //  console.log(`Sending PUT request to: ${url}`);
+  //  return this.http.put(url, updatedData);
+  //}
 
-  deleteGame(gameId: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/delete_game/${gameId}`);
-  }
+  //deleteGame(gameId: string): Observable<any> {
+  //  return this.http.delete(`${this.apiUrl}/delete_game/${gameId}`);
+  //}
+
+  //postGame(domino: any) {
+  //  return this.http.post(`${this.apiUrl}/create_game`, domino);  // Corrected to POST, and expecting the correct data format
+  //}
 }
